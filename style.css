@@ -1,4 +1,3 @@
-/* إعدادات عامة */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -9,11 +8,9 @@
 body {
     background-color: #f5f7fa;
     color: #333;
-    /* مساحة في الأسفل حتى لا يغطي شريط التنقل على المحتوى */
     padding-bottom: 80px; 
 }
 
-/* التأثير ثلاثي الأبعاد والانميشن */
 .3d-effect {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 10px 15px rgba(0,0,0,0.05);
     border-radius: 12px;
@@ -30,7 +27,6 @@ body {
     margin-top: 20px;
 }
 
-/* إعدادات التبويبات (إخفاء وإظهار مع أنيميشن) */
 .tab-content {
     display: none;
     padding: 20px;
@@ -46,7 +42,6 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* تصميم تبويب الرئيسية */
 .home-cards {
     display: flex;
     flex-direction: column;
@@ -83,7 +78,6 @@ body {
     flex: 1;
 }
 
-/* تصميم النماذج (السندات والتقارير) */
 .form-container {
     padding: 20px;
     text-align: center;
@@ -102,7 +96,6 @@ body {
     border-radius: 8px;
     font-size: 1rem;
     background-color: #fafafa;
-    /* ظل داخلي للحقل ليعطي عمق */
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); 
     outline: none;
 }
@@ -110,6 +103,18 @@ body {
 .input-3d:focus {
     border-color: #4a90e2;
     background-color: #fff;
+}
+
+.input-3d[readonly] {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+    border-color: #ccc;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
 }
 
 .btn {
@@ -126,7 +131,6 @@ body {
 .btn-red { background-color: #d9534f; }
 .btn-blue { background-color: #4a90e2; }
 
-/* تصميم سجل الفواتير والتقارير */
 .page-title {
     text-align: center;
     margin-bottom: 20px;
@@ -154,7 +158,6 @@ body {
 .text-green { color: #5cb85c; }
 .font-bold { font-weight: bold; }
 
-/* فلتر التاريخ في التقارير */
 .date-filter {
     padding: 15px;
     display: flex;
@@ -170,7 +173,6 @@ body {
     font-weight: bold;
 }
 
-/* بطاقات التقارير */
 .report-card {
     padding: 15px;
 }
@@ -193,7 +195,6 @@ body {
     border-bottom: none;
 }
 
-/* شريط التنقل السفلي */
 .bottom-nav {
     position: fixed;
     bottom: 0;
