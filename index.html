@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق الإدارة المالية</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- استدعاء مكتبة الأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- المحتوى الرئيسي للتبويبات -->
+    <main id="main-content">
+        
+        <!-- 1. التبويب: الرئيسية -->
+        <section id="tab-home" class="tab-content active">
+            <div class="home-cards">
+                <div class="card card-blue 3d-effect">
+                    <h3>الرصيد المتاح</h3>
+                    <p class="amount">2,796,350</p>
+                </div>
+                <div class="home-split">
+                    <div class="card card-green 3d-effect">
+                        <h3>القبض</h3>
+                        <p class="amount">0</p>
+                    </div>
+                    <div class="card card-red 3d-effect">
+                        <h3>الصرف</h3>
+                        <p class="amount">0</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. التبويب: السندات -->
+        <section id="tab-bonds" class="tab-content">
+            <div class="form-container 3d-effect">
+                <h3 class="form-title">سند قبض</h3>
+                <input type="number" class="input-3d" placeholder="مبلغ القبض" id="receive-amount">
+                <button class="btn btn-green 3d-effect" onclick="saveData('قبض')">إضافة قبض</button>
+            </div>
+
+            <div class="form-container 3d-effect mt-20">
+                <h3 class="form-title">سند صرف</h3>
+                <input type="text" class="input-3d" placeholder="اسم الشخص" id="spend-name">
+                <input type="number" class="input-3d" placeholder="مبلغ الصرف" id="spend-amount">
+                <button class="btn btn-red 3d-effect" onclick="saveData('صرف')">إضافة صرف</button>
+            </div>
+        </section>
+
+        <!-- 3. التبويب: الفواتير -->
+        <section id="tab-invoices" class="tab-content">
+            <h2 class="page-title">سجل الفواتير</h2>
+            <!-- تم حذف حقل البحث بناءً على طلبك -->
+            <div class="invoice-list">
+                <div class="invoice-item 3d-effect">
+                    <div class="invoice-details">
+                        <h4>فاتورة #1001 - علي محمد</h4>
+                        <p>تاريخ: 16 فبراير 2026</p>
+                    </div>
+                    <div class="invoice-actions">
+                        <i class="fa-solid fa-pen text-blue"></i>
+                        <i class="fa-solid fa-trash text-red"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. التبويب: التقارير -->
+        <section id="tab-reports" class="tab-content">
+            <h2 class="page-title">الملخص الشامل</h2>
+            
+            <!-- حقول البحث من تاريخ إلى تاريخ -->
+            <div class="date-filter 3d-effect">
+                <div class="date-input">
+                    <label>من:</label>
+                    <input type="date" class="input-3d">
+                </div>
+                <div class="date-input">
+                    <label>إلى:</label>
+                    <input type="date" class="input-3d">
+                </div>
+                <button class="btn btn-blue 3d-effect" style="margin-top: 10px;">بحث</button>
+            </div>
+
+            <!-- تفاصيل التقارير -->
+            <div class="report-card 3d-effect mt-20">
+                <h3 class="report-header"><i class="fa-solid fa-building-columns"></i> النتائج المالية</h3>
+                <div class="report-row">
+                    <span>رصيد الصندوق</span>
+                    <span class="text-blue font-bold">2,796,350 د.ع</span>
+                </div>
+                <div class="report-row">
+                    <span>صافي الربح</span>
+                    <span class="text-green font-bold">2,786,350 د.ع</span>
+                </div>
+            </div>
+
+            <div class="report-card 3d-effect mt-20">
+                <h3 class="report-header"><i class="fa-solid fa-file-invoice-dollar"></i> الفواتير</h3>
+                <div class="report-row">
+                    <span>عدد الفواتير</span>
+                    <span>7</span>
+                </div>
+                <div class="report-row">
+                    <span>إجمالي المبيعات</span>
+                    <span class="text-blue font-bold">2,786,350 د.ع</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- شريط التنقل السفلي -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" onclick="switchTab('tab-home', this)">
+            <i class="fa-solid fa-home"></i>
+            <span>الرئيسية</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('tab-bonds', this)">
+            <i class="fa-solid fa-money-bill-transfer"></i>
+            <span>السندات</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('tab-invoices', this)">
+            <i class="fa-solid fa-receipt"></i>
+            <span>الفواتير</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('tab-reports', this)">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>التقارير</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
