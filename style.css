@@ -1,0 +1,229 @@
+/* إعدادات عامة */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    /* مساحة في الأسفل حتى لا يغطي شريط التنقل على المحتوى */
+    padding-bottom: 80px; 
+}
+
+/* التأثير ثلاثي الأبعاد والانميشن */
+.3d-effect {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 10px 15px rgba(0,0,0,0.05);
+    border-radius: 12px;
+    background-color: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.3d-effect:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+/* إعدادات التبويبات (إخفاء وإظهار مع أنيميشن) */
+.tab-content {
+    display: none;
+    padding: 20px;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* تصميم تبويب الرئيسية */
+.home-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.card {
+    padding: 30px 20px;
+    text-align: center;
+    color: white;
+}
+
+.card h3 {
+    font-weight: normal;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.card .amount {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.card-blue { background: linear-gradient(135deg, #4a90e2, #357abd); }
+.card-green { background: linear-gradient(135deg, #5cb85c, #4cae4c); }
+.card-red { background: linear-gradient(135deg, #d9534f, #c9302c); }
+
+.home-split {
+    display: flex;
+    gap: 15px;
+}
+.home-split .card {
+    flex: 1;
+}
+
+/* تصميم النماذج (السندات والتقارير) */
+.form-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.form-title {
+    margin-bottom: 15px;
+    color: #444;
+}
+
+.input-3d {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fafafa;
+    /* ظل داخلي للحقل ليعطي عمق */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); 
+    outline: none;
+}
+
+.input-3d:focus {
+    border-color: #4a90e2;
+    background-color: #fff;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    color: white;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-green { background-color: #5cb85c; }
+.btn-red { background-color: #d9534f; }
+.btn-blue { background-color: #4a90e2; }
+
+/* تصميم سجل الفواتير والتقارير */
+.page-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.invoice-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.invoice-details h4 { margin-bottom: 5px; color: #222; }
+.invoice-details p { font-size: 0.85rem; color: #777; }
+
+.invoice-actions i {
+    font-size: 1.2rem;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.text-blue { color: #4a90e2; }
+.text-red { color: #d9534f; }
+.text-green { color: #5cb85c; }
+.font-bold { font-weight: bold; }
+
+/* فلتر التاريخ في التقارير */
+.date-filter {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.date-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.date-input label {
+    width: 40px;
+    font-weight: bold;
+}
+
+/* بطاقات التقارير */
+.report-card {
+    padding: 15px;
+}
+.report-header {
+    background-color: #eef2f7;
+    color: #4a90e2;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+.report-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+.report-row:last-child {
+    border-bottom: none;
+}
+
+/* شريط التنقل السفلي */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    z-index: 1000;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    color: #888;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.nav-btn i {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+}
+
+.nav-btn.active {
+    color: #4a90e2;
+}
