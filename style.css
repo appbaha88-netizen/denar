@@ -8,11 +8,23 @@
 body {
     background-color: #f5f7fa;
     color: #333;
-    padding-bottom: 80px;
+    padding: 18px 12px 92px;
+}
+
+body[data-connection-status="online"] #connection-status-text {
+    color: #2f9e44;
+}
+
+body[data-connection-status="offline"] #connection-status-text {
+    color: #d9480f;
+}
+
+body[data-connection-status="syncing"] #connection-status-text {
+    color: #1864ab;
 }
 
 .effect-3d {
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 10px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 10px 15px rgba(0, 0, 0, 0.05);
     border-radius: 12px;
     background-color: #fff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -20,17 +32,36 @@ body {
 
 .effect-3d:active {
     transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05);
 }
 
 .mt-20 {
     margin-top: 20px;
 }
 
+.top-status-bar {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+}
+
+.status-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.95rem;
+}
+
+.status-item strong {
+    font-size: 1.1rem;
+}
+
 .tab-content {
     display: none;
-    padding: 20px;
-    animation: fadeIn 0.4s ease-in-out;
+    padding: 8px;
+    animation: fadeIn 0.35s ease-in-out;
 }
 
 .tab-content.active {
@@ -38,21 +69,27 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .home-cards {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .card {
     padding: 30px 20px;
     text-align: center;
-    color: white;
+    color: #fff;
 }
 
 .card h3 {
@@ -66,9 +103,17 @@ body {
     font-weight: bold;
 }
 
-.card-blue { background: linear-gradient(135deg, #4a90e2, #357abd); }
-.card-green { background: linear-gradient(135deg, #5cb85c, #4cae4c); }
-.card-red { background: linear-gradient(135deg, #d9534f, #c9302c); }
+.card-blue {
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+}
+
+.card-green {
+    background: linear-gradient(135deg, #5cb85c, #4cae4c);
+}
+
+.card-red {
+    background: linear-gradient(135deg, #d9534f, #c9302c);
+}
 
 .home-split {
     display: flex;
@@ -97,7 +142,7 @@ body {
     border-radius: 8px;
     font-size: 1rem;
     background-color: #fafafa;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
     outline: none;
 }
 
@@ -125,16 +170,25 @@ body {
 .btn {
     width: 100%;
     padding: 12px;
-    color: white;
+    color: #fff;
     border: none;
+    border-radius: 10px;
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
 }
 
-.btn-green { background-color: #5cb85c; }
-.btn-red { background-color: #d9534f; }
-.btn-blue { background-color: #4a90e2; }
+.btn-green {
+    background-color: #5cb85c;
+}
+
+.btn-red {
+    background-color: #d9534f;
+}
+
+.btn-blue {
+    background-color: #4a90e2;
+}
 
 .save-status {
     margin-top: 12px;
@@ -165,12 +219,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
     padding: 15px;
     margin-bottom: 15px;
 }
 
+.invoice-details {
+    flex: 1;
+}
+
 .invoice-details h4 {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     color: #222;
 }
 
@@ -180,10 +239,36 @@ body {
     margin-top: 4px;
 }
 
-.text-blue { color: #4a90e2; }
-.text-red { color: #d9534f; }
-.text-green { color: #5cb85c; }
-.font-bold { font-weight: bold; }
+.invoice-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background-color: #f1f3f5;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.text-blue {
+    color: #4a90e2;
+}
+
+.text-red {
+    color: #d9534f;
+}
+
+.text-green {
+    color: #5cb85c;
+}
+
+.font-bold {
+    font-weight: bold;
+}
 
 .date-filter {
     padding: 15px;
@@ -194,6 +279,7 @@ body {
 .date-input {
     display: flex;
     align-items: center;
+    gap: 8px;
     margin-bottom: 10px;
 }
 
@@ -236,7 +322,7 @@ body {
     display: flex;
     justify-content: space-around;
     padding: 10px 0;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
     z-index: 1000;
 }
 
