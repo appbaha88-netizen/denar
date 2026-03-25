@@ -3,14 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4a90e2">
     <title>تطبيق الإدارة المالية</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <header class="top-status-bar effect-3d">
+        <div class="status-item">
+            <span>الحالة</span>
+            <strong id="connection-status-text">offline</strong>
+        </div>
+        <div class="status-item">
+            <span>العمليات المعلقة</span>
+            <strong id="pending-operations-count">0</strong>
+        </div>
+    </header>
 
     <main id="main-content">
-        
         <section id="tab-home" class="tab-content active">
             <div class="home-cards">
                 <div class="card card-blue effect-3d">
@@ -34,10 +48,10 @@
             <div class="form-container effect-3d">
                 <h3 class="form-title">سند قبض</h3>
                 <input type="text" class="input-3d" placeholder="رقم سند القبض" id="receive-number">
-                <input type="text" class="input-3d" placeholder="مبلغ القبض" id="receive-amount" oninput="handleNumberInput(this)">
+                <input type="text" class="input-3d" placeholder="مبلغ القبض" id="receive-amount">
                 <div class="action-buttons action-buttons-double">
-                    <button class="btn btn-green effect-3d" id="btn-save-receive" onclick="saveReceive()">حفظ</button>
-                    <button class="btn btn-blue effect-3d" id="btn-new-receive" onclick="startNewReceipt()">سند جديد</button>
+                    <button class="btn btn-green effect-3d" id="btn-save-receive">حفظ</button>
+                    <button class="btn btn-blue effect-3d" id="btn-new-receive">سند جديد</button>
                 </div>
                 <p class="save-status" id="receive-save-status"></p>
             </div>
@@ -45,8 +59,8 @@
             <div class="form-container effect-3d mt-20">
                 <h3 class="form-title">سند صرف</h3>
                 <input type="text" class="input-3d" placeholder="اسم الشخص" id="spend-name">
-                <input type="text" class="input-3d" placeholder="مبلغ الصرف" id="spend-amount" oninput="handleNumberInput(this)">
-                <button class="btn btn-red effect-3d" onclick="saveSpend()">حفظ</button>
+                <input type="text" class="input-3d" placeholder="مبلغ الصرف" id="spend-amount">
+                <button class="btn btn-red effect-3d" id="btn-save-spend">حفظ</button>
                 <div class="current-receipt-box">
                     <span>سند القبض</span>
                     <strong id="current-receipt-balance">0</strong>
@@ -61,7 +75,7 @@
 
         <section id="tab-reports" class="tab-content">
             <h2 class="page-title">الملخص الشامل</h2>
-            
+
             <div class="date-filter effect-3d">
                 <div class="date-input">
                     <label>من:</label>
@@ -71,7 +85,7 @@
                     <label>إلى:</label>
                     <input type="date" class="input-3d" id="report-date-to">
                 </div>
-                <button class="btn btn-blue effect-3d" style="margin-top: 10px;" onclick="searchReports()">بحث</button>
+                <button class="btn btn-blue effect-3d" id="btn-search-reports" style="margin-top: 10px;">بحث</button>
             </div>
 
             <div class="report-card effect-3d mt-20">
@@ -98,28 +112,27 @@
                 </div>
             </div>
         </section>
-
     </main>
 
     <nav class="bottom-nav">
-        <button class="nav-btn active" onclick="switchTab('tab-home', this)">
+        <button class="nav-btn active" data-tab="tab-home">
             <i class="fa-solid fa-home"></i>
             <span>الرئيسية</span>
         </button>
-        <button class="nav-btn" onclick="switchTab('tab-bonds', this)">
+        <button class="nav-btn" data-tab="tab-bonds">
             <i class="fa-solid fa-money-bill-transfer"></i>
             <span>السندات</span>
         </button>
-        <button class="nav-btn" onclick="switchTab('tab-invoices', this)">
+        <button class="nav-btn" data-tab="tab-invoices">
             <i class="fa-solid fa-receipt"></i>
             <span>الفواتير</span>
         </button>
-        <button class="nav-btn" onclick="switchTab('tab-reports', this)">
+        <button class="nav-btn" data-tab="tab-reports">
             <i class="fa-solid fa-chart-pie"></i>
             <span>التقارير</span>
         </button>
     </nav>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
