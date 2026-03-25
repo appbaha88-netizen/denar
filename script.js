@@ -20,8 +20,11 @@ function switchTab(tabId, element) {
 }
 
 function formatNumberWithDots(num) {
-    if (!num) return '0';
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    const numberValue = Number(num) || 0;
+    const isNegative = numberValue < 0;
+    const absoluteValue = Math.abs(numberValue);
+    const formattedValue = absoluteValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return isNegative ? '-' + formattedValue : formattedValue;
 }
 
 function parseNumberFromDots(str) {
@@ -42,6 +45,22 @@ function getCurrentDate() {
     });
 }
 
+function getTotalReceipts() {
+    return invoices
+        .filter(inv => inv.type === 'قبض')
+        .reduce((sum, inv) => sum + inv.amount, 0);
+}
+
+function getTotalPayments() {
+    return invoices
+        .filter(inv => inv.type === 'صرف')
+        .reduce((sum, inv) => sum + inv.amount, 0);
+}
+
+function getAvailableBalance() {
+    return getTotalReceipts() - getTotalPayments();
+}
+
 function saveReceive() {
     const numberInput = document.getElementById('receive-number');
     const amountInput = document.getElementById('receive-amount');
@@ -54,7 +73,6 @@ function saveReceive() {
 
     currentReceipt.number = receiptNumber;
     currentReceipt.amount = amount;
-    currentReceipt.remaining = amount;
     currentReceipt.saved = true;
 
     numberInput.readOnly = true;
@@ -71,6 +89,8 @@ function saveReceive() {
         receiptNumber: receiptNumber
     });
 
+    currentReceipt.remaining = getAvailableBalance();
+
     updateUI();
 }
 
@@ -81,7 +101,6 @@ function startNewReceipt() {
 
     currentReceipt.number = '';
     currentReceipt.amount = 0;
-    currentReceipt.remaining = 0;
     currentReceipt.saved = false;
 
     numberInput.value = '';
@@ -89,6 +108,8 @@ function startNewReceipt() {
     numberInput.readOnly = false;
     amountInput.readOnly = false;
     saveStatus.innerText = '';
+
+    currentReceipt.remaining = getAvailableBalance();
 
     updateUI();
 }
@@ -102,9 +123,6 @@ function saveSpend() {
 
     if (!currentReceipt.saved) return;
     if (name === '' || amount <= 0) return;
-    if (amount > currentReceipt.remaining) return;
-
-    currentReceipt.remaining -= amount;
 
     invoiceCounter++;
     invoices.push({
@@ -116,6 +134,8 @@ function saveSpend() {
         receiptNumber: currentReceipt.number
     });
 
+    currentReceipt.remaining = getAvailableBalance();
+
     nameInput.value = '';
     amountInput.value = '';
 
@@ -123,15 +143,11 @@ function saveSpend() {
 }
 
 function updateUI() {
-    const totalReceipts = invoices
-        .filter(inv => inv.type === 'قبض')
-        .reduce((sum, inv) => sum + inv.amount, 0);
-
-    const totalPayments = invoices
-        .filter(inv => inv.type === 'صرف')
-        .reduce((sum, inv) => sum + inv.amount, 0);
-
+    const totalReceipts = getTotalReceipts();
+    const totalPayments = getTotalPayments();
     const availableBalance = totalReceipts - totalPayments;
+
+    currentReceipt.remaining = availableBalance;
 
     document.getElementById('home-available').innerText = formatNumberWithDots(availableBalance);
     document.getElementById('home-receipts').innerText = formatNumberWithDots(totalReceipts);
