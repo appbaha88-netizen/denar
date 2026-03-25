@@ -38,7 +38,11 @@ function handleNumberInput(input) {
 }
 
 function getCurrentDate() {
-    return new Date().toLocaleDateString('ar-EG', {
+    return new Date().toLocaleDateString('en-CA');
+}
+
+function formatDisplayDate(dateString) {
+    return new Date(dateString).toLocaleDateString('ar-EG', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
@@ -142,6 +146,30 @@ function saveSpend() {
     updateUI();
 }
 
+function searchReports() {
+    const fromDate = document.getElementById('report-date-from').value;
+    const toDate = document.getElementById('report-date-to').value;
+
+    if (fromDate === '' || toDate === '') return;
+
+    const filteredInvoices = invoices.filter(inv => inv.date >= fromDate && inv.date <= toDate);
+
+    const totalReceipts = filteredInvoices
+        .filter(inv => inv.type === 'قبض')
+        .reduce((sum, inv) => sum + inv.amount, 0);
+
+    const totalPayments = filteredInvoices
+        .filter(inv => inv.type === 'صرف')
+        .reduce((sum, inv) => sum + inv.amount, 0);
+
+    const balance = totalReceipts - totalPayments;
+
+    document.getElementById('report-balance').innerText = formatNumberWithDots(balance) + ' د.ع';
+    document.getElementById('report-receipts').innerText = formatNumberWithDots(totalReceipts) + ' د.ع';
+    document.getElementById('report-payments').innerText = formatNumberWithDots(totalPayments) + ' د.ع';
+    document.getElementById('report-invoice-count').innerText = filteredInvoices.length;
+}
+
 function updateUI() {
     const totalReceipts = getTotalReceipts();
     const totalPayments = getTotalPayments();
@@ -172,7 +200,7 @@ function updateUI() {
                     <p>رقم سند القبض: ${inv.receiptNumber}</p>
                     <p>الاسم: ${inv.name}</p>
                     <p>المبلغ: <span class="${amountClass} font-bold">${formatNumberWithDots(inv.amount)}</span> د.ع</p>
-                    <p>التاريخ: ${inv.date}</p>
+                    <p>التاريخ: ${formatDisplayDate(inv.date)}</p>
                 </div>
             </div>
         `;
